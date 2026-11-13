@@ -11,8 +11,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -110,10 +108,8 @@ public class InstructorService {
         oldInstructor.setLastName(update.getLastName());
         oldInstructor.setEmail(update.getEmail());
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         // If the instructor is also an admin, then the instructor can update all the fields
-        if (authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_admin"))) {
+        if (this.userUtils.hasRole("ROLE_admin")) {
             oldInstructor.setEnabled(update.isEnabled());
             oldInstructor.setRoles(update.getRoles());
         }
