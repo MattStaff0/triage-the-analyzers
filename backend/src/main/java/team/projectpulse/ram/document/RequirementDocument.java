@@ -53,6 +53,7 @@ public class RequirementDocument {
 
 
     public RequirementDocument() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public void addSection(DocumentSection section) {

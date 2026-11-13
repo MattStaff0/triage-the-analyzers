@@ -26,6 +26,7 @@ public class Team {
 
 
     public Team() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public Team(String teamName, String description, String teamWebsiteUrl) {

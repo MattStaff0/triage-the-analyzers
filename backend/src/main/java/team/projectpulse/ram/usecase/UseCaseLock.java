@@ -33,6 +33,7 @@ public class UseCaseLock {
 
 
     public UseCaseLock() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public boolean isLocked(Instant now) {

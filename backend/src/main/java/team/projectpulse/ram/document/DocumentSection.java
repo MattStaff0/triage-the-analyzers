@@ -70,6 +70,7 @@ public class DocumentSection {
 
 
     public DocumentSection() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     /* ---------- Convenience helpers ---------- */

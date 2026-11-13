@@ -78,7 +78,7 @@ public class RequirementArtifact {
 
 
     public RequirementArtifact() {
-
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public RequirementArtifact(Team team, RequirementArtifactType type, String title, String content, String notes) {

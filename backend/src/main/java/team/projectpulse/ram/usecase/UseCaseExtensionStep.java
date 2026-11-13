@@ -19,6 +19,7 @@ public class UseCaseExtensionStep {
 
 
     public UseCaseExtensionStep() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public UseCaseExtensionStep(String actor, String actionText) {

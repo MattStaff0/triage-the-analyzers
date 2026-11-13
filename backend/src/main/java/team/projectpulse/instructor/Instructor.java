@@ -30,6 +30,7 @@ public class Instructor extends PeerEvaluationUser {
 
 
     public Instructor() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public Instructor(String username, String firstName, String lastName, String email, String password, boolean enabled, String roles) {

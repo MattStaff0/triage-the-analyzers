@@ -33,6 +33,7 @@ public class DocumentSectionLock {
 
 
     public DocumentSectionLock() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public boolean isLocked(Instant now) {

@@ -52,6 +52,7 @@ public class Section {
 
 
     public Section() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public Section(String sectionName,

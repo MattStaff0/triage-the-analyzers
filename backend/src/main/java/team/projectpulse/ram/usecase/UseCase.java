@@ -74,6 +74,7 @@ public class UseCase {
 
 
     public UseCase() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     /* ---------- Convenience helpers ---------- */
