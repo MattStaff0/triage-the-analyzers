@@ -3,6 +3,7 @@ package team.projectpulse.ram.document.template;
 import team.projectpulse.ram.requirement.SectionType;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DocumentTemplate {
@@ -18,12 +19,14 @@ public class DocumentTemplate {
         this.title = title;
     }
 
+    // DocumentTemplateRegistry shares one instance across every request, so callers get a read-only view
     public List<SectionTemplate> getSections() {
-        return sections;
+        return Collections.unmodifiableList(sections);
     }
 
+    // A template file with no sections: key passes null; store it as empty so the getter never returns null
     public void setSections(List<SectionTemplate> sections) {
-        this.sections = sections;
+        this.sections = sections == null ? new ArrayList<>() : new ArrayList<>(sections);
     }
 
     public static class SectionTemplate {

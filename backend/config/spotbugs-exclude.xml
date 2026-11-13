@@ -7,4 +7,18 @@
 
      Unlike the baseline, this file may grow, but every entry is a reviewed decision. -->
 <FindBugsFilter>
+  <!-- D1: EI_EXPOSE_REP and EI_EXPOSE_REP2 are off everywhere except DocumentTemplate.
+       - JPA entities must hand out the live managed instance: the relationship helpers add through the
+         getter (Course.java:96 instructor.getCourses().add(this), Section.java:149), so a copy would
+         silently stop the change from being saved, and a cloned entity is not managed by Hibernate.
+       - Injected beans (controllers, services, components) are Spring singletons; sharing them is the
+         point of dependency injection; every flagged bean stores only other beans.
+       - DTOs and records live for one request and are filled through their getters
+         (EvaluationService.java:229 report.getPeerEvaluationAverages().add(...)).
+       DocumentTemplate is the exception: DocumentTemplateRegistry loads it once at startup and shares it
+       across every request and team, so a caller changing its sections would change every later document. -->
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    <Not><Class name="team.projectpulse.ram.document.template.DocumentTemplate"/></Not>
+  </Match>
 </FindBugsFilter>
