@@ -16,6 +16,7 @@ public class ResetPasswordToken {
 
 
     public ResetPasswordToken() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public ResetPasswordToken(String email) {

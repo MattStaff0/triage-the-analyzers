@@ -36,6 +36,7 @@ public class Comment {
 
 
     public Comment() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public Long getId() {

@@ -60,6 +60,7 @@ public class CommentThread {
 
 
     public CommentThread() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public void addComment(Comment comment) {

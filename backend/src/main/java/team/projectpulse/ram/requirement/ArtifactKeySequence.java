@@ -28,6 +28,7 @@ public class ArtifactKeySequence {
 
 
     public ArtifactKeySequence() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public ArtifactKeySequence(Team team, RequirementArtifactType type) {

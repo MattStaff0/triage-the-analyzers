@@ -51,6 +51,7 @@ public class ArtifactLink {
 
 
     public ArtifactLink() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public Long getId() {

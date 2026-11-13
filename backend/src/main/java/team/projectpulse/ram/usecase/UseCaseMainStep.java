@@ -29,7 +29,7 @@ public class UseCaseMainStep {
 
     
     public UseCaseMainStep() {
-
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public UseCaseMainStep(Long id, String actor, String actionText) {

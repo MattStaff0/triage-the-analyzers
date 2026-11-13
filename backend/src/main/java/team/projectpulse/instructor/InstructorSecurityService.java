@@ -39,12 +39,10 @@ public class InstructorSecurityService {
      */
     public boolean isCurrentUserAdminOfInstructorCourse(Integer instructorId) {
         Integer adminIdFromJwt = this.userUtils.getUserId();
-        Instructor instructor = this.instructorRepository.findById(instructorId).orElse(null);
-        if (instructor == null) {
-            return false;
-        }
-        return instructor.getCourses().stream()
-                .anyMatch(course -> course.getCourseAdmin().getId().equals(adminIdFromJwt));
+        return this.instructorRepository.findById(instructorId)
+                .map(instructor -> instructor.getCourses().stream()
+                        .anyMatch(course -> course.getCourseAdmin().getId().equals(adminIdFromJwt)))
+                .orElse(false);
     }
 
 }

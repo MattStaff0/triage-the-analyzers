@@ -1,12 +1,10 @@
 package team.projectpulse.instructor;
 
-import org.junit.jupiter.api.AfterEach;
 import team.projectpulse.course.Course;
 import team.projectpulse.course.CourseRepository;
 import team.projectpulse.section.Section;
 import team.projectpulse.section.SectionRepository;
 import team.projectpulse.system.UserUtils;
-import team.projectpulse.user.MyUserPrincipal;
 import team.projectpulse.user.userinvitation.UserInvitationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,9 +17,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
@@ -82,11 +77,6 @@ class InstructorServiceTest {
         this.instructors = List.of(instructor1, instructor2);
     }
     
-    @AfterEach
-    void tearDown() {
-        SecurityContextHolder.clearContext(); // Clear the security context after each test to avoid interference between tests
-    }
-
     @Test
     void testFindByCriteria() {
         // Given
@@ -142,13 +132,7 @@ class InstructorServiceTest {
         given(this.instructorRepository.findById(2)).willReturn(Optional.of(bill));
         given(this.instructorRepository.save(any(Instructor.class))).willReturn(bill);
 
-        Instructor instructor = new Instructor();
-        instructor.setRoles("instructor");
-        MyUserPrincipal myUserPrincipal = new MyUserPrincipal(instructor);
-
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(myUserPrincipal, null, myUserPrincipal.getAuthorities()));
-        SecurityContextHolder.setContext(securityContext);
+        given(this.userUtils.hasRole("ROLE_admin")).willReturn(false);
 
         // When
         Instructor result = this.instructorService.updateInstructor(2, update);
@@ -167,13 +151,7 @@ class InstructorServiceTest {
         given(this.instructorRepository.findById(2)).willReturn(Optional.of(bill));
         given(this.instructorRepository.save(any(Instructor.class))).willReturn(bill);
 
-        Instructor instructor = new Instructor();
-        instructor.setRoles("admin");
-        MyUserPrincipal myUserPrincipal = new MyUserPrincipal(instructor);
-
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken(myUserPrincipal, null, myUserPrincipal.getAuthorities()));
-        SecurityContextHolder.setContext(securityContext);
+        given(this.userUtils.hasRole("ROLE_admin")).willReturn(true);
 
         // When
         Instructor result = this.instructorService.updateInstructor(2, update);

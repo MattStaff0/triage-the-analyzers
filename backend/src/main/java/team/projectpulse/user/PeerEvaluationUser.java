@@ -34,6 +34,7 @@ public abstract class PeerEvaluationUser {
 
 
     public PeerEvaluationUser() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public PeerEvaluationUser(String username, String firstName, String lastName, String email, String password, boolean enabled, String roles) {

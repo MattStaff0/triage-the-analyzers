@@ -25,6 +25,7 @@ public class Rubric {
 
 
     public Rubric() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public Rubric(String rubricName) {

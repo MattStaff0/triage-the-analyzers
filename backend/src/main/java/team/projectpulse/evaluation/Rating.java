@@ -17,6 +17,7 @@ public class Rating {
 
 
     public Rating() {
+        // required by JPA: Hibernate instantiates entities reflectively
     }
 
     public Rating(Criterion criterion, Double actualScore) {
