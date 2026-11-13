@@ -15,6 +15,13 @@
     <rule ref="rulesets/java/quickstart.xml">
         <!-- D2: re-declared below, narrowed to non-entities. -->
         <exclude name="UnnecessaryConstructor"/>
+        <!-- D4: GuardLogStatement is off. All 12 backend log calls use SLF4J {} placeholders, so the message
+             is only built when the level is enabled; what a guard would still skip is evaluating the arguments,
+             and every argument is a getter or size(). No logging.level is set in any application*.yml, so the
+             level is Spring Boot's default INFO: the error and info calls are always enabled, so a guard would
+             never skip anything, and the one debug call (AuthController.java:38) passes authentication.getName().
+             Cost of turning it off: an expensive argument in a future debug call must be caught in review. -->
+        <exclude name="GuardLogStatement"/>
     </rule>
 
     <!-- D2: UnnecessaryConstructor is off for JPA entities and enforced everywhere else. JPA requires an entity
